@@ -13,27 +13,37 @@ export class TokenService {
   private jwtHelperService = new JwtHelperService();
   private readonly TOKEN_KEY = 'access_token'
   constructor() { }
+  private isLocalStorageAvailable(): boolean {
+    return typeof localStorage !== 'undefined';
+  }
   setToken(token: string) {
-    localStorage.setItem(this.TOKEN_KEY,token);
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem(this.TOKEN_KEY, token);
+    }
   }
   removeToken(): void {
-    localStorage.removeItem(this.TOKEN_KEY)
+    if (this.isLocalStorageAvailable()) {
+      localStorage.removeItem(this.TOKEN_KEY)
+    }
   }
-  getToken(): string|null {
-    return localStorage.getItem(this.TOKEN_KEY)
+  getToken(): string | null {
+    if (this.isLocalStorageAvailable()) {
+      return localStorage.getItem(this.TOKEN_KEY)
+    }
+    return null
   }
   isTokenExpired(): boolean {
-    if(this.getToken() != null) {
-      return true;
-    }
+    // if (this.getToken() != null) {
+    //   return true;
+    // }
     return this.jwtHelperService.isTokenExpired(this.getToken())
   }
   getUserIdByToken(): string {
     const tokenObject = this.jwtHelperService.decodeToken(this.getToken() ?? '')
-    return 'userId' in tokenObject ? tokenObject['userId']:''
+    return 'userId' in tokenObject ? tokenObject['userId'] : ''
   }
   getRoleByToken(): string {
     const tokenObject = this.jwtHelperService.decodeToken(this.getToken() ?? '')
-    return 'role' in tokenObject ? tokenObject['role']:''
+    return 'role' in tokenObject ? tokenObject['role'] : ''
   }
 }

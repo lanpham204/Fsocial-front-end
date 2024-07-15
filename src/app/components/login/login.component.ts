@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("email",this.email);
       }
       if(this.tokenService.getRoleByToken() === 'ADMIN') {
-        this.route.navigate(['/admin/post'])
+        this.route.navigate(['/admin/posts'])
       } else {
         this.route.navigate([''])
       }
