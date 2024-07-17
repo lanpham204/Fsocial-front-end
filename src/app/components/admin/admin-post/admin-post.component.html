@@ -32,9 +32,9 @@
             <!-- loader wrapper -->
             <div class="row">
                 <div class="card shadow mb-4">
-                    <a href="">
+                    <!-- <a href="">
                         <button class="btn btn-success mt-2">Create</button>
-                    </a>
+                    </a> -->
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -50,6 +50,8 @@
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <p-toast />
+                                <p-confirmDialog />
                                 <div class="table-responsive">
                                     <table class="table table-bordered mt-2" id="dataTable" width="100%"
                                         cellspacing="0">
@@ -61,7 +63,8 @@
                                                 <th>Created At</th>
                                                 <th>Updated At</th>
                                                 <th>Major ID</th>
-                                                <th>Active</th>
+                                                <th>Detail</th>
+                                                <th>Is Active</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -90,12 +93,25 @@
                                                 <td>{{ post.createdAt | date:'short' }}</td>
                                                 <td>{{ post.updatedAt | date:'short' }}</td>
                                                 <td>{{ post.majorId }}</td>
-                                                <td>{{ post.isActive }}</td>
-                                                <td>ac</td>
+                                                <td>{{ post.active }}</td>
+                                                <td>
+                                                    <p-button (onClick)="showPost(post.id,$index)" label="Show"
+                                                        styleClass="btn btn-info" />
+
+
+                                                </td>
+                                                <td>
+                                                    <p-button (click)="delete($event,post.id,$index)" icon="pi pi-times"
+                                                        label="Xóa" styleClass="btn btn-danger"></p-button>
                                             </tr>
                                             }
                                         </tbody>
                                     </table>
+                                    <div class="card flex justify-content-center">
+                                        <p-paginator (onPageChange)="onPageChange($event)" [first]="first"
+                                            [rows]="totalPagesNoActive" [totalRecords]="120"
+                                            [rowsPerPageOptions]="[10, 20, 30]" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -168,3 +184,86 @@
 
     </div>
 </div>
+<p-dialog header="" [(visible)]="visiblePostNoActive" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }"
+    [draggable]="false" [resizable]="false">
+    <div class="modal-content p-2">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Duyệt bài
+            </h5>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group row">
+                    <label for="id" class="col-sm-2 col-form-label">ID</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="id" placeholder="ID" value="{{post?.id}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="content" class="col-sm-2 col-form-label">Content</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="content" rows="3" placeholder="Content"
+                            value="{{post?.content}}"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="userId" class="col-sm-2 col-form-label">User
+                        ID</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="userId" placeholder="User ID"
+                            value="{{post?.userId}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="createdAt" class="col-sm-2 col-form-label">Created
+                        At</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="createdAt" placeholder="Created At"
+                            value="{{ post?.createdAt | date:'short' }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="updatedAt" class="col-sm-2 col-form-label">Updated
+                        At</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="updatedAt" placeholder="Updated At"
+                            value="{{ post?.updatedAt | date:'short' }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="majorId" class="col-sm-2 col-form-label">Major
+                        ID</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="majorId" placeholder="Major ID"
+                            value="{{post?.majorId}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="detail" class="col-sm-12 col-form-label">Images</label>
+                    @for (image of post?.images; track $index) {
+                    <div class="col-sm-4">
+                        <img class="" src="{{image.image}}" alt="">
+                    </div>
+                    }
+
+                </div>
+                <div class="form-group row">
+                    <label for="detail" class="col-sm-12 col-form-label">Files</label>
+                    @for (file of post?.files; track $index) {
+                    <div class="col-sm-4">
+                        <a href="{{file.file}}">File {{$index+1}}</a>
+                    </div>
+                    }
+
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="closeModalButton" class="btn btn-info me-2" data-bs-dismiss="modal"
+                (click)="visiblePostNoActive = false">Trở
+                về</button>
+            <button type="button" class="btn btn-success" (click)="acceptPost()">Duyệt
+                bài</button>
+        </div>
+    </div>
+</p-dialog>

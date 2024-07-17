@@ -21,4 +21,7 @@ export class UserService {
   getById(id: string): Observable<UserResponse> {
     return this.http.get<UserResponse>(this.apiUser+`/${id}`)
   }
+  verifyUser(id: string, code: string): Observable<any> {
+    return this.http.post(this.apiUser+`/validator-email/${id}`,{code});
+  }
 }
