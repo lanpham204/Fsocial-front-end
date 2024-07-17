@@ -10,7 +10,7 @@ export class PostResponse {
   createdAt: Date;
   updatedAt: Date;
   majorId: string;
-  isActive: boolean;
+  active: boolean;
 
   constructor(
     id: string,
@@ -21,7 +21,7 @@ export class PostResponse {
     createdAt: Date,
     updatedAt: Date,
     majorId: string,
-    isActive: boolean
+    active: boolean
   ) {
     this.id = id;
     this.content = content;
@@ -31,6 +31,6 @@ export class PostResponse {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.majorId = majorId;
-    this.isActive = isActive;
+    this.active = active;
   }
 }

@@ -6,8 +6,9 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { tokenInterceptor } from './interceptors/token.interceptor';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withInterceptors([tokenInterceptor]), withFetch()),
-  provideAnimations(), provideToastr(),]
+  provideAnimations(), provideToastr(), ConfirmationService, MessageService]
 };

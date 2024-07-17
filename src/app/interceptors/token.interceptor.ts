@@ -8,7 +8,5 @@ export const tokenInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
             headers: req.headers.set('Authorization', `Bearer ${tokenService.getToken()}`),
         })
     }
-    console.log("hello");
-
     return next(req);
 }
