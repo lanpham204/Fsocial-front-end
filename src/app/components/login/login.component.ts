@@ -6,12 +6,12 @@ import { TokenService } from '../../services/token.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AsyncLocalStorage } from 'async_hooks';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [HeaderComponent,NavLeftComponent,FormsModule,CommonModule],
+  imports: [HeaderComponent,NavLeftComponent,FormsModule,CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

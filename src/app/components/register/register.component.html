@@ -1,0 +1,87 @@
+
+    <div class="main-wrap">
+
+        <div class="nav-header bg-transparent shadow-none border-0">
+            <div class="nav-top w-100">
+                <a href="index.html"><i class="feather-zap text-success display1-size me-2 ms-0"></i><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </a>
+                <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="default-video.html" class="mob-menu me-2"><i class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="#" class="me-2 menu-search-icon mob-menu"><i class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <button class="nav-menu me-0 ms-2"></button>
+
+                <a href="#" class="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl"  data-bs-toggle="modal" data-bs-target="#Modallogin">Login</a>
+                <a href="#" class="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl"  data-bs-toggle="modal" data-bs-target="#Modalregister">Register</a>
+
+            </div>
+            
+            
+        </div>
+
+        <div class="row">
+            <div class="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat" style="background-image: url(assets/images/login-bg-2.jpg);"></div>
+            <div class="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
+                <div class="card shadow-none border-0 ms-auto me-auto login-card">
+                    <div class="card-body rounded-0 text-left">
+                        <h2 class="fw-700 display1-size display2-md-size mb-4">Create <br>your account</h2>                        
+                        <form [formGroup]="user_group">
+                            <div class="form-group icon-input mb-3">
+                                <i class="fa-regular fa-id-card m-1"></i>
+                                <input formControlName="id" type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Mã sinh viên">
+                                <div class="text-danger"
+                                *ngIf="user_group.controls['id'].invalid &&user_group.controls['id'].touched">
+                                Mã sinh viên phải bắt đẩu bằng ps và kết thúc là 5 chữ số. ví dụ: ps34359
+                                </div>
+                            </div>
+                            <div class="form-group icon-input mb-3">
+                                <i class="fa-solid fa-user m-1"></i>
+                                <input formControlName="full_name" type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Họ và tên">
+                                <div class="text-danger"
+                                *ngIf="user_group.controls['full_name'].invalid &&user_group.controls['full_name'].touched">
+                                Họ và tên phải từ 2 đến 50 ký tự.
+                                </div>                     
+                            </div>
+                            <div class="form-group icon-input mb-3">
+                                <i class="fa-solid fa-envelope m-1"></i>
+                                <input formControlName="email" type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" placeholder="Email">                        
+                                <div class="text-danger"
+                                *ngIf="user_group.controls['email'].invalid &&user_group.controls['email'].touched">
+                                Email không hợp lệ.
+                                </div>                     
+                            </div>
+                            <div class="form-group icon-input mb-3">
+                                <input type="Password" formControlName="password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Mật khẩu">
+                                 <i class="fa-solid fa-lock m-1"></i>
+                                <div class="text-danger"
+                                *ngIf="user_group.controls['password'].invalid &&user_group.controls['password'].touched">
+                                Mật khẩu phải từ 3 đến 20 ký tự.
+                                </div>                     
+                            </div>
+                            <div class="form-group icon-input mb-1">
+                                <input type="Password" formControlName="confirm_password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3" placeholder="Xác nhận mật khẩu">
+                                <i class="fa-solid fa-lock m-1"></i>
+                                <div class="text-danger"
+                                *ngIf="user_group.controls['confirm_password'].invalid &&user_group.controls['confirm_password'].touched">
+                                Mật khẩu phải từ 3 đến 20 ký tự.
+                                </div>                
+                                <div class="text-danger" *ngIf="user_group.controls['confirm_password'].value !==user_group.controls['password'].value
+                            &&user_group.controls['confirm_password'].touched">Mật khẩu nhập lại phải trùng với mật khẩu</div>
+     
+                                <!-- <div class="text-danger"
+                                *ngIf="user_group.controls['confirm_password'].value 
+                                !== user_group.controls["password"].value 
+                                && user_group.controls['confirm_password'].touched">
+                                Mật khẩu phải từ 3 đến 20 ký tự.
+                                </div>                      -->
+                            </div>
+                        </form>
+                         
+                        <div class="col-sm-12 p-0 text-left">
+                            <div class="form-group mb-1"><a (click)="register()" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Đăng ký</a>
+                            </div>
+                            <h6 class="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">Bạn đã có tài khoản<a routerLink="/login" class="fw-700 ms-1">Đăng nhập</a></h6>
+                        </div> 
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
