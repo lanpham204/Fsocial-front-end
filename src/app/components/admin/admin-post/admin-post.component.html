@@ -107,11 +107,29 @@
                                             }
                                         </tbody>
                                     </table>
-                                    <div class="card flex justify-content-center">
-                                        <p-paginator (onPageChange)="onPageChange($event)" [first]="first"
-                                            [rows]="totalPagesNoActive" [totalRecords]="120"
-                                            [rowsPerPageOptions]="[10, 20, 30]" />
+                                    <div class="d-flex justify-content-center">
+                                        <div class="page">
+                                            <ul>
+                                                <li (click)="onFirstPageNoActive()"><a><i
+                                                            class="fa-solid fa-angle-left"></i></a></li>
+                                                <li (click)="onPreviousPageNoActive()"><a><i
+                                                            class="fa-solid fa-angles-left"></i></a></li>
+                                                <li *ngFor="let page of visiblePageNoActive"
+                                                    [class.active]="currentPageNoActive === page">
+                                                    <a (click)="onPageChangeNoActive(page)">{{ page + 1 }}</a>
+                                                </li>
+                                                <li (click)="onNextPageNoActive()"><a><i
+                                                            class="fa-solid fa-angles-right"></i></a></li>
+                                                <li (click)="onLastPageNoActive()"><a><i
+                                                            class="fa-solid fa-angle-right"></i></a></li>
+                                            </ul>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="card flex justify-content-center">
+                                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first"
+                                        [rows]="totalPagesNoActive" [totalRecords]="120"
+                                        [rowsPerPageOptions]="[10, 20, 30]" />
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">

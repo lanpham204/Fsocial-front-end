@@ -59,11 +59,10 @@ export class AdminPostComponent implements OnInit {
     this.postService.getPostByActiveFalse(this.currentPageNoActive, this.pageSizeNoActive).subscribe({
       next: (response: any) => {
         this.postsActiveFalse = response.posts
-        this.totalPagesNoActive = response.totalPages
+        this.totalPagesNoActive = response.totalPage
         if (this.currentPageNoActive <= this.totalPagesNoActive - 2) {
           this.getVisiblePage();
         }
-        console.log(response.totalPages);
       }, error: (error: any) => {
         debugger
         console.log(error);
@@ -71,20 +70,23 @@ export class AdminPostComponent implements OnInit {
     })
   }
   onPageChangeNoActive(page: number) {
-
     this.currentPageNoActive = page;
     this.getPostsByActiveFalse()
   }
   onPageChange(event: any) {
-    this.getPostsByActiveFalse() 
     this.first = event.first
+    this.currentPageNoActive = event.first
+    this.getPostsByActiveFalse()
     this.totalPagesNoActive = event.rows;
+    console.log(this.postsActiveFalse);
   }
   getVisiblePage(): void {
     const totalPagesToShow = 5; // Số trang hiển thị tối đa trên thanh phân trang
     const visiblePageCount = Math.min(totalPagesToShow, this.totalPagesNoActive); // Số trang hiển thị thực sự
     const startPage = Math.max(0, this.currentPageNoActive - Math.floor(visiblePageCount / 2)); // Trang bắt đầu hiển thị
     this.visiblePageNoActive = Array.from({ length: visiblePageCount }, (_, index) => startPage + index);
+    console.log(this.visiblePageNoActive);
+
   }
   onNextPageNoActive() {
     if (this.currentPageNoActive < this.totalPagesNoActive - 1) {
